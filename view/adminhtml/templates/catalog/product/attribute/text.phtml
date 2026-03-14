@@ -22,6 +22,20 @@ $pagination = $block->getPaginationData();
     </legend>
     <div id="swatch-text-options-panel">
         <div class="admin__data-grid-pager-wrap attribute-pager">
+            <div class="attribute-pager-filter">
+                <label for="swatch-text-options-filter" class="admin__control-support-text"><?= $block->escapeHtml(__('Filter options')) ?></label>
+                <input type="text"
+                       id="swatch-text-options-filter"
+                       class="admin__control-text attribute-pager-filter-input"
+                       value="<?= $block->escapeHtmlAttr($block->getCurrentFilterValue()) ?>"
+                       placeholder="<?= $block->escapeHtmlAttr(__('Search option label')) ?>">
+                <button type="button" class="action-secondary attribute-pager-filter-btn">
+                    <span><?= $block->escapeHtml(__('Filter')) ?></span>
+                </button>
+                <button type="button" class="action-secondary attribute-pager-filter-clear-btn">
+                    <span><?= $block->escapeHtml(__('Clear')) ?></span>
+                </button>
+            </div>
             <label for="attributeGrid_page-limit"></label><select name="limit" id="attributeGrid_page-limit" class="admin__control-select attribute-pager-limit">
                 <?php foreach ($block->getLimits() as $limit): ?>
                     <option value="<?= $limit; ?>" <?= $pagination['pageSize'] === $limit ? 'selected="selected"' : ''; ?>><?= $limit; ?></option>
@@ -136,6 +150,7 @@ $pagination = $block->getPaginationData();
                     "panelType": "text",
                     "containerSelector": "[data-role=swatch-text-options-container]",
                     "registryKey": "swatch-text-options-panel",
+                    "filterSelector": ".attribute-pager-filter-input",
                     "requestParams": <?= /* @noEscape */ json_encode($block->getPagerRequestParams(), JSON_HEX_QUOT) ?>,
                     "pagination": <?= /* @noEscape */ json_encode($pagination, JSON_HEX_QUOT) ?>
                 }
